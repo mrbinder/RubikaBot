@@ -1,5 +1,7 @@
 <?php
 
+include "request.php";
+
 function MakeKey(string $auth){
     $b = "";
     $b .= substr($auth, 16, 8);
