@@ -93,14 +93,6 @@ class Rubika{
         return $this->sender($js,"sendMessage");
     }
 
-    public function search_in_member($text,$channel_guid){
-        $j1 = ["channel_guid"=>$channel_guid,"search_text"=>$text];
-        $res = $this->sender($j1,"getChannelAllMembers");
-        try{
-            return $res["in_chat_members"];
-        }catch (Exception $e){return [];}
-    }
-
     public function get_user_info($token){
         $data = new user_data();
         $res = $this->sender(["user_guid"=>$token],"getUserInfo");
@@ -121,39 +113,6 @@ class Rubika{
         }
 
         return $data;
-    }
-
-    public function check_join($member_guid,$channel_guid){
-        $is_join = false;
-        $info = $this->get_user_info($member_guid);
-        if (hasKey($info,"user_name")){
-            $username = $info["user_name"];
-            $res = $this->search_in_member($username,$channel_guid);
-            foreach ($res as $i){
-                if ($i["member_guid"] == $member_guid){
-                    return true;
-                }
-            }
-        }
-        if (hasKey($info,"name")){
-            $name = $info["name"];
-            $res = $this->search_in_member($name,$channel_guid);
-            foreach ($res as $i){
-                if ($i["member_guid"] == $member_guid){
-                    return true;
-                }
-            }
-        }
-        if (hasKey($info,"last_name")){
-            $last_name = $info["last_name"];
-            $res = $this->search_in_member($last_name,$channel_guid);
-            foreach ($res as $i){
-                if ($i["member_guid"] == $member_guid){
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public function update_profile(user_data $data){
