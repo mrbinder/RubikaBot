@@ -13,7 +13,7 @@ function send_post($url,$data){
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $response = curl_exec($ch);
         global $ngix_error_bypass;
-        if ($response != null & strpos($response,$ngix_error_bypass) == false){
+        if ($response != null & strpos($response,$ngix_error) == false){
             break;
         }
     }
